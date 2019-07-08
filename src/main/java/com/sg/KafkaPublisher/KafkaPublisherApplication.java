@@ -24,7 +24,7 @@ public class KafkaPublisherApplication {
 
 	@GetMapping("/publish/{name}")
 	public String publishMessage(@PathVariable String name){
-		template.send(topic,"Hi! Testing 123..!!");
+		template.send(topic,"Hi! " +name+ "..Testing 123..!!");
 		return "Data-Published";
 	}
 }
