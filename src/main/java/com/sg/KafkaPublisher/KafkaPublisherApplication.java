@@ -1,5 +1,6 @@
 package com.sg.KafkaPublisher;
 
+import com.sg.KafkaPublisher.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -27,4 +28,13 @@ public class KafkaPublisherApplication {
 		template.send(topic,"Hi! " +name+ "..Testing 123..!!");
 		return "Data-Published";
 	}
+
+	@GetMapping("/publishJson")
+	public String publishMessage(){
+		User user=new User(1,"User 1",new String[]{"Testing Address","Testing Country"});
+		template.send(topic,user);
+		return "Json data Published";
+	}
+
+
 }
