@@ -37,7 +37,7 @@ public class SpringConsumerApplication {
 	@KafkaListener(groupId = "test-topic-2",topics = "testing-topic",containerFactory = "userKafkaListenerContainerFactory")
 	public User getJSONMessageFromTopic(User user){
 		this.user=user;
-		return user;
+		return this.user;
 	}
 
 	@GetMapping("/consumeJsonMessage")

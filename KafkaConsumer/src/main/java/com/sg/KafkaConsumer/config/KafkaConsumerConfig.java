@@ -46,11 +46,15 @@ public class KafkaConsumerConfig {
     @Bean
     public ConsumerFactory<String, User> userConsumerFactory(){
         Map<String,Object> config=new HashMap<>();
+        JsonDeserializer<User> deserializer=new JsonDeserializer<>(User.class);
+        deserializer.setRemoveTypeHeaders(false);
+        deserializer.addTrustedPackages("*");
+        deserializer.setUseTypeMapperForKey(true);
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,"localhost:9092");
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
         config.put(ConsumerConfig.GROUP_ID_CONFIG,"test-topic-2");
-        return new DefaultKafkaConsumerFactory<>(config,new StringDeserializer(),new JsonDeserializer<>(User.class) );
+        return new DefaultKafkaConsumerFactory<>(config,new StringDeserializer(),deserializer );
     }
 
 
